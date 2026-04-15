@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<view class="container">
+
+  <!-- 轮播图 -->
+  <swiper class="swiper" wx:if="{{swiperList.length > 0}}" indicator-dots autoplay interval="4000" duration="800" circular>
+    <swiper-item wx:for="{{swiperList}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFill"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- 滚动标签 + 添加按钮 -->
+  <view class="action-row">
+    <view class="marquee-box">
+      <view class="marquee-text">
+        <text class="marquee-content">今天又去哪儿了 · 今天有什么新鲜事 · 发布纪念一下我们的日子 · 记录此刻的心情 · </text>
+      </view>
+    </view>
+    <view class="add-btn" bindtap="goToAddAnniversary">
+      <text class="add-icon">+</text>
+      <text class="add-text">添加纪念日</text>
+    </view>
+  </view>
+
+  <!-- 合并后的日记列表 -->
+  <view class="diary-section">
+    <view class="diary-card {{item.coverImage ? 'has-cover' : 'no-cover'}}" wx:for="{{allList}}" wx:key="_id" bindtap="onDiaryTap" data-index="{{index}}">
+      <view class="diary-cover" wx:if="{{item.coverImage}}">
+        <image src="{{item.coverImage}}" mode="aspectFill"></image>
+        <view class="diary-cover-tag" wx:if="{{item.tag}}">
+          <text>{{item.tag}}</text>
+        </view>
+      </view>
+      <view class="diary-info {{item.coverImage ? '' : 'diary-info-compact'}}">
+        <view class="diary-header">
+          <text class="diary-date">{{item.date}}</text>
+          <view class="diary-mood" wx:if="{{item.mood}}">{{item.mood}}</view>
+        </view>
+        <text class="diary-title">{{item.title}}</text>
+        <text class="diary-summary" wx:if="{{item.summary}}">{{item.summary}}</text>
+        <view class="diary-footer" wx:if="{{item.images && item.images.length > 0}}">
+          <text class="diary-img-count">{{item.images.length}}张图片</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多提示 -->
+    <view class="load-more" wx:if="{{loadMoreStatus === 'loading'}}">
+      <view class="loading-spinner"></view>
+      <text>加载中...</text>
+    </view>
+    <view class="load-more nomore" wx:if="{{loadMoreStatus === 'nomore' && allList.length > 0}}">
+      <text>— 已经到底啦 —</text>
+    </view>
+  </view>
+
+</view>

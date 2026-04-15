@@ -1,0 +1,72 @@
+<!--pages/goals/goals.wxml-->
+<view class="container">
+  <!-- Progress -->
+  <view class="progress-section">
+    <view class="progress-info">
+      <text class="progress-text">完成进度</text>
+      <text class="progress-num">{{completedCount}}/{{totalCount}}</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{totalCount > 0 ? (completedCount / totalCount * 100) : 0}}%"></view>
+    </view>
+  </view>
+
+  <!-- Goal List -->
+  <view class="goal-list" wx:if="{{goals.length > 0}}">
+    <view class="goal-item {{item.completed ? 'completed' : ''}}" wx:for="{{goals}}" wx:key="id">
+      <view class="goal-content" bindtap="toggleGoal" data-id="{{item.id}}">
+        <view class="checkbox {{item.completed ? 'checked' : ''}}">
+          <text wx:if="{{item.completed}}">✓</text>
+        </view>
+        <view class="goal-info">
+          <view class="goal-title">{{item.title}}</view>
+          <view class="goal-desc" wx:if="{{item.description}}">{{item.description}}</view>
+          <view class="goal-deadline" wx:if="{{item.deadline}}">
+            <text class="deadline-label">截止日期：</text>
+            <text>{{item.deadline}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="goal-delete" catchtap="deleteGoal" data-id="{{item.id}}">
+        <text>×</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Empty State -->
+  <view class="empty-state" wx:if="{{goals.length === 0}}">
+    <text class="empty-icon">🎯</text>
+    <text class="empty-text">还没有小目标，快去添加吧</text>
+  </view>
+
+  <!-- Add Button -->
+  <view class="add-btn" bindtap="openAddModal">+</view>
+
+  <!-- Add Modal -->
+  <view class="modal-mask" wx:if="{{showAddModal}}" catchtap="closeAddModal">
+    <view class="modal-content" catchtap="preventBubble">
+      <view class="modal-title">新建小目标</view>
+      <view class="form-item">
+        <text class="form-label">目标标题 *</text>
+        <input class="form-input" placeholder="输入你的目标" value="{{newGoal.title}}" bindinput="onTitleInput" maxlength="30" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">目标描述</text>
+        <textarea class="form-textarea" placeholder="详细描述你的目标（选填）" value="{{newGoal.description}}" bindinput="onDescInput" maxlength="200" auto-height />
+      </view>
+      <view class="form-item">
+        <text class="form-label">截止日期</text>
+        <picker mode="date" value="{{newGoal.deadline}}" bindchange="onDeadlineChange">
+          <view class="form-picker">
+            <text class="{{newGoal.deadline ? '' : 'placeholder'}}">{{newGoal.deadline || '选择截止日期'}}</text>
+            <text class="picker-arrow">›</text>
+          </view>
+        </picker>
+      </view>
+      <view class="modal-actions">
+        <view class="btn-cancel" catchtap="closeAddModal">取消</view>
+        <view class="btn-confirm" catchtap="addGoal">添加</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,17 @@
+<!--pages/feedback/feedback.wxml-->
+<view class="feedback-page" wx:if="{{!submitted}}">
+  <view class="form-card">
+    <view class="form-label">反馈内容</view>
+    <textarea class="form-textarea" placeholder="请描述您遇到的问题或建议..." value="{{content}}" bindinput="onContentInput" maxlength="500" auto-height></textarea>
+    <text class="char-count">{{content.length}}/500</text>
+    <view class="form-label" style="margin-top: 24rpx;">联系方式（选填）</view>
+    <input class="form-input" placeholder="手机号或微信号" value="{{contact}}" bindinput="onContactInput" maxlength="30" />
+  </view>
+  <view class="submit-btn" bindtap="submit"><text>提交反馈</text></view>
+</view>
+<view class="feedback-page success" wx:else>
+  <text class="success-icon">🎉</text>
+  <text class="success-title">感谢您的反馈！</text>
+  <text class="success-desc">我们会认真对待每一条反馈</text>
+  <view class="submit-btn" bindtap="submit" style="margin-top: 40rpx;"><text>继续反馈</text></view>
+</view>

@@ -1,0 +1,140 @@
+<!--pages/period/period.wxml-->
+<view class="period-page">
+
+  <!-- ===== 日历 ===== -->
+  <view class="calendar-card">
+    <view class="cal-header">
+      <text bindtap="prevMonth">‹</text>
+      <text class="cal-title">{{year}}年{{month}}月</text>
+      <text bindtap="nextMonth">›</text>
+    </view>
+
+    <view class="drag-tip" wx:if="{{isDragging}}">
+      <text>📌 拖动选择中：{{dragStartDate}}{{dragEndDate !== dragStartDate ? ' ~ ' + dragEndDate : ''}}</text>
+    </view>
+
+    <view class="cal-weekdays">
+      <text wx:for="{{weekDays}}" wx:key="*this" class="weekday">{{item}}</text>
+    </view>
+
+    <!-- 日历容器 - 捕获触摸移动 -->
+    <view
+      class="cal-days"
+      catchtouchmove="onContainerTouchMove">
+      <view
+        class="day-cell {{item.day === 0 ? 'empty' : ''}} {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}} {{item.isInRange ? 'in-range' : ''}} {{item.hasPeriod ? 'has-period' : ''}} {{item.hasLove ? 'has-love' : ''}} {{item.hasOvu ? 'has-ovu' : ''}}"
+        wx:for="{{days}}"
+        wx:key="index"
+        bindtap="onDayTap"
+        bindlongpress="onDayLongPress"
+        data-date="{{item.date}}">
+
+        <text wx:if="{{item.day > 0}}" class="day-num">{{item.day}}</text>
+
+        <view class="day-icons" wx:if="{{item.day > 0 && (item.hasPeriod || item.hasLove || item.hasOvu)}}">
+          <text wx:if="{{item.hasPeriod}}" class="mark-icon">🩸</text>
+          <text wx:if="{{item.hasLove}}" class="mark-icon">💕</text>
+          <text wx:if="{{item.hasOvu}}" class="mark-icon">🥚</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="period-legend">
+      <view class="legend-item"><view class="legend-swatch period-bg"></view><text>经期</text></view>
+      <view class="legend-item"><view class="legend-swatch love-bg"></view><text>性生活</text></view>
+      <view class="legend-item"><view class="legend-swatch ovu-bg"></view><text>排卵期</text></view>
+      <view class="legend-item"><view class="legend-swatch today-swatch"></view><text>今天</text></view>
+    </view>
+
+    <view class="usage-tip">
+      <text>单击选中日期 · 长按拖动选择范围</text>
+    </view>
+  </view>
+
+  <!-- ===== 单日详情区 ===== -->
+  <view class="section detail-panel" wx:if="{{selectedDate && !dragStartDate}}">
+    <view class="panel-header">
+      <text class="panel-date">{{selectedDate}}</text>
+      <text class="clear-btn" bindtap="clearSelect">取消</text>
+    </view>
+
+    <view class="records-section">
+      <view class="section-label">已标记：</view>
+      <view class="record-chips">
+        <view class="record-chip period" wx:for="{{selectedDayRecords}}" wx:key="id" wx:if="{{item.type === 'period'}}">
+          <text>🩸 经期</text>
+          <text class="chip-del" catchtap="deleteSingleRecord" data-id="{{item.id}}">×</text>
+        </view>
+        <view class="record-chip love" wx:for="{{selectedDayRecords}}" wx:key="id" wx:if="{{item.type === 'intercourse'}}">
+          <text>💕 性生活</text>
+          <text class="chip-del" catchtap="deleteSingleRecord" data-id="{{item.id}}">×</text>
+        </view>
+        <view class="record-chip ovu" wx:for="{{selectedDayRecords}}" wx:key="id" wx:if="{{item.type === 'ovulation'}}">
+          <text>🥚 排卵期</text>
+          <text class="chip-del" catchtap="deleteSingleRecord" data-id="{{item.id}}">×</text>
+        </view>
+        <text class="no-record-hint" wx:if="{{selectedDayRecords.length === 0}}">暂无标记</text>
+      </view>
+    </view>
+
+    <view class="add-section">
+      <view class="section-label">添加标记：</view>
+      <view class="add-row">
+        <view class="add-btn period-btn" bindtap="addMarkToSelected" data-type="period">
+          <text>🩸 经期</text>
+        </view>
+        <view class="add-btn love-btn" bindtap="addMarkToSelected" data-type="intercourse">
+          <text>💕 性生活</text>
+        </view>
+        <view class="add-btn ovu-btn" bindtap="addMarkToSelected" data-type="ovulation">
+          <text>🥚 排卵期</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 范围操作区 ===== -->
+  <view class="section range-panel" wx:if="{{dragStartDate}}">
+    <view class="panel-header">
+      <text class="panel-date">
+        {{dragStartDate}}{{dragEndDate !== dragStartDate ? ' ~ ' + dragEndDate : ''}}
+      </text>
+      <text class="clear-btn" bindtap="clearSelect">取消</text>
+    </view>
+
+    <view class="range-hint">
+      <text wx:if="{{!dragEndDate || dragStartDate === dragEndDate}}">已选：{{dragStartDate}}</text>
+      <text wx:else>范围：{{dragStartDate < dragEndDate ? dragStartDate : dragEndDate}} ~ {{dragStartDate < dragEndDate ? dragEndDate : dragStartDate}}</text>
+    </view>
+
+    <view class="range-actions">
+      <view class="action-label">标记此范围：</view>
+      <view class="add-row">
+        <view class="add-btn period-btn" bindtap="markRangeAsType" data-type="period">
+          <text>🩸 经期</text>
+        </view>
+        <view class="add-btn love-btn" bindtap="markRangeAsType" data-type="intercourse">
+          <text>💕 性生活</text>
+        </view>
+        <view class="add-btn ovu-btn" bindtap="markRangeAsType" data-type="ovulation">
+          <text>🥚 排卵期</text>
+        </view>
+      </view>
+
+      <view class="delete-row" wx:if="{{dragEndDate && dragStartDate !== dragEndDate}}">
+        <view class="btn-delete-range" bindtap="deleteRangeRecords">
+          <text>删除此范围所有记录</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 空状态提示 ===== -->
+  <view class="section hint-panel" wx:if="{{!selectedDate && !dragStartDate}}">
+    <view class="hint-box">
+      <text class="hint-main">点击日期查看或添加标记</text>
+      <text class="hint-sub">长按并拖动可选择日期范围</text>
+    </view>
+  </view>
+
+</view>

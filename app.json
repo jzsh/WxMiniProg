@@ -1,0 +1,62 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/diary_detail/diary_detail",
+    "pages/add_anniversary/add_anniversary",
+    "pages/note/note",
+    "pages/couple_things/couple_things",
+    "pages/album/album",
+    "pages/mine/mine",
+    "pages/settings/settings",
+    "pages/favorites/favorites",
+    "pages/recycle_bin/recycle_bin",
+    "pages/feedback/feedback",
+    "pages/period/period",
+    "pages/memo/memo",
+    "pages/goals/goals",
+    "pages/operation_history/operation_history"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "觅光手记",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#00b26a",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/note/note",
+        "text": "便利贴"
+      },
+      {
+        "pagePath": "pages/album/album",
+        "text": "相册"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "cloud": true,
+  "permission": {
+    "scope.userLocation": {
+      "desc": "需要您的地理位置用于选择日记位置"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation",
+    "getLocation"
+  ]
+}

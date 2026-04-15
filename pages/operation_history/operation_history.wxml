@@ -1,0 +1,77 @@
+<view class="container">
+  <!-- 标题栏 -->
+  <view class="header">
+    <text class="header-title">操作历史记录</text>
+    <text class="header-subtitle">记录所有用户的操作轨迹</text>
+  </view>
+
+  <!-- 操作日志列表 -->
+  <view class="log-list" wx:if="{{operationLogs.length > 0}}">
+    <block wx:for="{{operationLogs}}" wx:key="_id" wx:for-item="log">
+      <view class="log-card {{log.operationType}}">
+        <!-- 操作类型标签 -->
+        <view class="log-type-badge">{{log._displayType}}</view>
+        
+        <!-- 竖版信息区域 -->
+        <view class="log-body">
+          <!-- 操作者 -->
+          <view class="log-row">
+            <text class="label">操作者：</text>
+            <text class="value user-value">{{log._displayUser}}</text>
+          </view>
+          
+          <!-- 时间 -->
+          <view class="log-row">
+            <text class="label">时间：</text>
+            <text class="value time-value">{{log._displayTime}}</text>
+          </view>
+          
+          <!-- 标题/操作对象 -->
+          <view class="log-row title-row">
+            <text class="label">{{log._displayLabel}}：</text>
+            <text class="value title-value">{{log._displayTitle}}</text>
+          </view>
+          
+          <!-- 详情内容（默认显示） -->
+          <view class="log-row detail-row" wx:if="{{!collapsedMap[log._id] || !log.hasDetails || log.detailsList.length <= 1}}">
+            <text class="label">详情：</text>
+            <text class="value detail-value">{{log._displayDetail}}</text>
+            <!-- 折叠按钮（仅当有多个详情字段时显示） -->
+            <view class="collapse-btn"
+                  wx:if="{{log.hasDetails && log.detailsList.length > 1}}"
+                  bindtap="toggleCollapse"
+                  data-id="{{log._id}}">
+              <text class="collapse-text">{{collapsedMap[log._id] ? '收起 ▲' : '展开更多 ▼'}}</text>
+            </view>
+          </view>
+          
+          <!-- 展开后的完整详情 -->
+          <view class="expanded-detail" wx:if="{{collapsedMap[log._id] && log.hasDetails && log.detailsList.length > 1}}">
+            <view class="detail-line" wx:for="{{log.detailsList}}" wx:for-item="detail" wx:key="key">
+              <text class="detail-key">{{detail.key}}：</text>
+              <text class="detail-val">{{detail.value}}</text>
+            </view>
+            <view class="collapse-btn" bindtap="toggleCollapse" data-id="{{log._id}}">
+              <text class="collapse-text">收起 ▲</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无操作记录</text>
+    <text class="empty-hint">您的操作记录将在这里显示</text>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+  <view class="load-more" wx:if="{{!loading && !hasMore && operationLogs.length > 0}}">
+    <text class="no-more-text">没有更多记录了</text>
+  </view>
+</view>

@@ -1,0 +1,286 @@
+/* pages/note/note.wxss */
+
+page {
+  background-color: #f5f5f5;
+}
+
+.note-page {
+  padding: 20rpx 24rpx;
+  padding-bottom: 40rpx;
+}
+
+/* ========== 通用区块 ========== */
+.section {
+  margin-bottom: 24rpx;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+  padding: 0 8rpx;
+}
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ========== 纪念日倒数 ========== */
+.countdown-list {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+.countdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 32rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.countdown-item:last-child {
+  border-bottom: none;
+}
+
+.countdown-left {
+  display: flex;
+  align-items: center;
+}
+.countdown-icon {
+  font-size: 44rpx;
+  margin-right: 20rpx;
+}
+.countdown-info {
+  display: flex;
+  flex-direction: column;
+}
+.countdown-name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+}
+.countdown-date {
+  font-size: 22rpx;
+  color: #bbb;
+  margin-top: 4rpx;
+}
+.countdown-right {
+  display: flex;
+  align-items: baseline;
+}
+.countdown-num {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+.countdown-unit {
+  font-size: 22rpx;
+  color: #ff6b6b;
+  margin-left: 4rpx;
+}
+
+/* ========== 情侣100件事 ========== */
+.couple-card {
+  background: linear-gradient(135deg, #fff0f0 0%, #fff5f5 100%);
+  border-radius: 16rpx;
+  padding: 32rpx;
+}
+.couple-header {
+  margin-bottom: 24rpx;
+}
+.couple-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+.couple-progress {
+  margin-bottom: 16rpx;
+}
+.progress-bar {
+  height: 16rpx;
+  background: rgba(255,107,107,0.15);
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-bottom: 12rpx;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+  border-radius: 8rpx;
+  transition: width 0.3s;
+}
+.progress-text {
+  font-size: 24rpx;
+  color: #ff6b6b;
+}
+.couple-hint {
+  text-align: right;
+}
+.couple-hint text {
+  font-size: 24rpx;
+  color: #ffaaaa;
+}
+
+.empty-hint {
+  text-align: center;
+  padding: 40rpx 0;
+  font-size: 26rpx;
+  color: #ccc;
+}
+
+/* ========== 便利贴 ========== */
+.ann-add-row { display: flex; align-items: center; margin-bottom: 16rpx; }
+.ann-icon-btn { font-size: 48rpx; margin-right: 16rpx; }
+.ann-name-input { flex: 1; background: #f7f7f7; border-radius: 12rpx; padding: 16rpx 20rpx; font-size: 28rpx; }
+.ann-date-row { display: flex; align-items: center; justify-content: space-between; background: #f7f7f7; border-radius: 12rpx; padding: 16rpx 20rpx; margin-bottom: 16rpx; }
+.ann-date-text { font-size: 28rpx; color: #333; }
+.ann-date-text.empty { color: #bbb; }
+.date-arrow { font-size: 40rpx; color: #ccc; font-weight: bold; }
+
+.add-note-btn {
+  background: #00b26a;
+  padding: 6rpx 20rpx;
+  border-radius: 24rpx;
+}
+.add-note-btn text {
+  font-size: 24rpx;
+  color: #fff;
+}
+.add-note-box {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+.note-input {
+  width: 100%;
+  min-height: 80rpx;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+}
+.note-input-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+  margin-top: 16rpx;
+}
+.note-cancel text,
+.note-confirm text {
+  font-size: 26rpx;
+  padding: 8rpx 28rpx;
+  border-radius: 24rpx;
+}
+.note-cancel text {
+  color: #999;
+}
+.note-confirm text {
+  color: #fff;
+  background: #00b26a;
+}
+.sticky-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.sticky-card {
+  width: 335rpx;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  box-sizing: border-box;
+  min-height: 160rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+.sticky-text {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.5;
+}
+.sticky-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16rpx;
+}
+.sticky-time {
+  font-size: 20rpx;
+  color: #bbb;
+}
+.sticky-delete {
+  font-size: 32rpx;
+  color: #ccc;
+  padding: 0 8rpx;
+}
+
+/* ========== 快捷入口 ========== */
+.quick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 16rpx 0;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+.quick-item {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 0;
+}
+.quick-icon {
+  font-size: 48rpx;
+  margin-bottom: 8rpx;
+}
+.quick-name {
+  font-size: 24rpx;
+  color: #666;
+}
+.quick-del {
+  font-size: 28rpx;
+  color: #ccc;
+  position: absolute;
+  right: 8rpx;
+  top: 8rpx;
+}
+.quick-item {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 0;
+  position: relative;
+}
+
+/* ========== 爱好标签 ========== */
+.hobby-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+.hobby-tag {
+  background: #fff;
+  padding: 12rpx 28rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.hobby-tag text {
+  font-size: 26rpx;
+  color: #555;
+}
+.hobby-del {
+  font-size: 24rpx;
+  color: #ccc;
+  margin-left: 12rpx;
+}
+.hobby-tag {
+  display: flex;
+  align-items: center;
+}

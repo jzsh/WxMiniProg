@@ -1,0 +1,49 @@
+<!--pages/recycle_bin/recycle_bin.wxml-->
+<view class="bin-page">
+  <!-- 日记回收站 -->
+  <view class="section" wx:if="{{diaries.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">📝 日记 ({{diaries.length}})</text>
+    </view>
+    <view class="recycle-list">
+      <view class="recycle-item" wx:for="{{diaries}}" wx:key="id">
+        <view class="recycle-info">
+          <text class="recycle-title">{{item.title}}</text>
+          <text class="recycle-date">删除于 {{item.deletedAt}}</text>
+        </view>
+        <view class="recycle-actions">
+          <text class="action-restore" bindtap="restoreDiary" data-index="{{index}}">恢复</text>
+          <text class="action-delete" bindtap="permanentDeleteDiary" data-index="{{index}}">永久删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 照片回收站 -->
+  <view class="section" wx:if="{{photos.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">📷 照片 ({{photos.length}})</text>
+    </view>
+    <view class="photo-grid">
+      <view class="photo-item" wx:for="{{photos}}" wx:key="id">
+        <image src="{{item.src}}" mode="aspectFill"></image>
+        <view class="photo-actions">
+          <text class="action-restore" bindtap="restorePhoto" data-index="{{index}}">恢复</text>
+          <text class="action-delete" bindtap="permanentDeletePhoto" data-index="{{index}}">删除</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{diaries.length === 0 && photos.length === 0}}">
+    <text class="empty-icon">🗑️</text>
+    <text class="empty-text">回收站是空的</text>
+    <text class="empty-hint">删除的日记和照片会保存在这里</text>
+  </view>
+
+  <!-- 清空按钮 -->
+  <view class="clear-btn" wx:if="{{diaries.length > 0 || photos.length > 0}}" bindtap="clearAll">
+    <text>清空回收站</text>
+  </view>
+</view>

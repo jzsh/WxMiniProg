@@ -1,0 +1,32 @@
+<view class="container">
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{favorites.length === 0}}">
+    <text class="empty-icon">👤</text>
+    <text class="empty-text">暂无收藏</text>
+    <text class="empty-hint">去首页浏览日记，收藏喜欢的内容吧~</text>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="list" wx:else>
+    <view class="fav-item" wx:for="{{favorites}}" wx:key="_id" bindtap="onItemTap" data-index="{{index}}">
+      <view class="fav-cover" wx:if="{{item.coverImage}}">
+        <image src="{{item.coverImage}}" mode="aspectFill"></image>
+      </view>
+      <view class="fav-cover fav-cover-default" wx:else>
+        <text class="cover-placeholder">📖</text>
+      </view>
+      <view class="fav-info">
+        <text class="fav-title">{{item.title || '无标题'}}</text>
+        <view class="fav-meta">
+          <text class="fav-date">{{item.date}}</text>
+          <text class="fav-divider">·</text>
+          <text class="fav-tag" wx:if="{{item.tag}}">{{item.tag}}</text>
+          <text class="fav-mood" wx:if="{{item.mood}}">{{item.mood}}</text>
+        </view>
+      </view>
+      <view class="fav-remove" catchtap="onRemoveFavorite" data-index="{{index}}">
+        <text class="remove-icon">✕</text>
+      </view>
+    </view>
+  </view>
+</view>

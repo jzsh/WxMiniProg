@@ -1,0 +1,25 @@
+<!--pages/couple_things/couple_things.wxml-->
+<view class="things-page">
+  <!-- 顶部进度 -->
+  <view class="progress-card">
+    <view class="progress-header">
+      <text class="progress-title">💕 情侣必做的100件事</text>
+      <text class="progress-num">{{doneCount}}/{{totalCount}}</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{doneCount / totalCount * 100}}%"></view>
+    </view>
+    <text class="progress-hint">已完成 {{doneCount}} 件事，继续加油~</text>
+  </view>
+
+  <!-- 清单列表 -->
+  <view class="things-list">
+    <view class="thing-item {{doneSet[index] ? 'done' : ''}}" wx:for="{{things}}" wx:key="index" bindtap="toggleItem" data-index="{{index}}">
+      <view class="check-circle">
+        <text wx:if="{{doneSet[index]}}">✓</text>
+      </view>
+      <text class="thing-index">{{index + 1}}</text>
+      <text class="thing-text">{{item}}</text>
+    </view>
+  </view>
+</view>

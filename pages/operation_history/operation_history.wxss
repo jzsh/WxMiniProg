@@ -1,0 +1,202 @@
+/* pages/operation_history/operation_history.wxss */
+.container {
+  min-height: 100vh;
+  background-color: #f5f6fa;
+  padding: 20rpx 24rpx;
+}
+
+/* 标题栏 */
+.header {
+  margin-bottom: 28rpx;
+  padding: 0 8rpx;
+}
+
+.header-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.header-subtitle {
+  font-size: 25rpx;
+  color: #95a5a6;
+}
+
+/* 日志列表 */
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* 每条记录卡片 */
+.log-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 28rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+  border-left: 6rpx solid #3498db;
+  transition: all 0.3s ease;
+}
+
+.log-card.add { border-left-color: #27ae60; }
+.log-card.delete { border-left-color: #e74c3c; }
+.log-card.update { border-left-color: #f39c12; }
+
+/* 操作类型标签 */
+.log-type-badge {
+  display: inline-block;
+  font-size: 24rpx;
+  color: #fff;
+  font-weight: 600;
+  padding: 6rpx 18rpx;
+  border-radius: 20rpx;
+  margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
+}
+
+.add .log-type-badge { background-color: #27ae60; }
+.delete .log-type-badge { background-color: #e74c3c; }
+.update .log-type-badge { background-color: #f39c12; }
+
+/* 内容区域 */
+.log-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+/* 每一行信息 */
+.log-row {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.6;
+}
+
+/* 标签文字（时间、标题、详情） */
+.label {
+  font-size: 27rpx;
+  color: #7f8c8d;
+  width: 90rpx;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+/* 值内容 */
+.value {
+  font-size: 28rpx;
+  color: #2c3e50;
+  flex: 1;
+  word-break: break-all;
+}
+
+.time-value {
+  color: #34495e;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.title-value {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 29rpx;
+}
+
+.title-row .label {
+  color: #555;
+}
+
+.detail-value {
+  color: #666;
+  font-size: 26rpx;
+  line-height: 1.7;
+}
+
+/* 折叠按钮 */
+.collapse-btn {
+  display: inline-block;
+  margin-top: 10rpx;
+  padding: 8rpx 20rpx;
+  background-color: #ecf0f1;
+  border-radius: 20rpx;
+}
+
+.collapse-text {
+  font-size: 24rpx;
+  color: #3498db;
+  font-weight: 500;
+}
+
+/* 展开后的完整详情 */
+.expanded-detail {
+  margin-top: 14rpx;
+  padding: 20rpx;
+  background-color: #f8f9fa;
+  border-radius: 12rpx;
+  border-left: 3rpx solid #bdc3c7;
+}
+
+.detail-line {
+  display: flex;
+  margin-bottom: 10rpx;
+  line-height: 1.6;
+}
+
+.detail-key {
+  font-size: 25rpx;
+  color: #7f8c8d;
+  width: auto;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+.detail-val {
+  font-size: 25rpx;
+  color: #555;
+  flex: 1;
+  word-break: break-all;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  color: #dfe6e9;
+  margin-bottom: 32rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #b2bec3;
+  margin-bottom: 16rpx;
+}
+
+.empty-hint {
+  font-size: 26rpx;
+  color: #dfe6e9;
+}
+
+/* 加载更多 */
+.load-more {
+  text-align: center;
+  padding: 40rpx;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #95a5a6;
+}
+
+.no-more-text {
+  font-size: 26rpx;
+  color: #dfe6e9;
+}

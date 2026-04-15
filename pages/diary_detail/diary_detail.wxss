@@ -1,0 +1,336 @@
+/* pages/diary_detail/diary_detail.wxss */
+
+page {
+  background-color: #f5f5f5;
+}
+
+.detail-page {
+  padding-bottom: 120rpx;
+}
+
+/* ========== 顶部头图 ========== */
+.header-image {
+  position: relative;
+  width: 100%;
+  height: 500rpx;
+  overflow: hidden;
+}
+.header-image image {
+  width: 100%;
+  height: 100%;
+}
+.header-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40rpx 32rpx;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+}
+.header-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* ========== 标题区（无头图时） ========== */
+.title-section {
+  position: relative;
+  overflow: hidden;
+}
+.title-section-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0.15;
+}
+.title-section-content {
+  position: relative;
+  background: #fff;
+  padding: 40rpx 32rpx 24rpx;
+}
+.detail-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #222;
+  display: block;
+  margin-bottom: 16rpx;
+}
+.date-line {
+  display: flex;
+  align-items: center;
+}
+.detail-date {
+  font-size: 26rpx;
+  color: #999;
+}
+.detail-tag {
+  margin-left: 16rpx;
+  font-size: 22rpx;
+  color: #00b26a;
+  background: rgba(0, 178, 106, 0.1);
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+/* ========== 正文内容 ========== */
+.content-section {
+  background: #fff;
+  padding: 32rpx;
+  margin-top: 2rpx;
+}
+.meta-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.meta-date {
+  font-size: 26rpx;
+  color: #999;
+}
+.meta-tag {
+  margin-left: 16rpx;
+  font-size: 22rpx;
+  color: #00b26a;
+  background: rgba(0, 178, 106, 0.1);
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+.content-text {
+  margin-bottom: 24rpx;
+}
+.content-paragraph {
+  display: block;
+  font-size: 30rpx;
+  color: #444;
+  line-height: 2;
+  margin-bottom: 16rpx;
+}
+.content-images {
+  margin-top: 24rpx;
+}
+.content-image {
+  width: 100%;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+/* ========== 心情/天气标签 ========== */
+.mood-tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+.mood-tag {
+  background: #f7f7f7;
+  padding: 8rpx 20rpx;
+  border-radius: 24rpx;
+  margin-right: 16rpx;
+  margin-bottom: 12rpx;
+}
+.mood-tag text {
+  font-size: 24rpx;
+  color: #888;
+}
+/* ========== 分隔线 ========== */
+.divider {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 32rpx 20rpx;
+}
+.divider-line {
+  flex: 1;
+  height: 1rpx;
+  background: #e0e0e0;
+}
+.divider-text {
+  padding: 0 24rpx;
+  font-size: 26rpx;
+  color: #bbb;
+}
+
+/* ========== 评论区 ========== */
+.comment-section {
+  background: #fff;
+  padding: 20rpx 32rpx;
+}
+.comment-empty {
+  padding: 40rpx 0;
+  text-align: center;
+}
+.comment-empty-text {
+  font-size: 26rpx;
+  color: #ccc;
+}
+.comment-item {
+  display: flex;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.comment-item:last-child {
+  border-bottom: none;
+}
+.comment-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.comment-body {
+  flex: 1;
+  margin-left: 20rpx;
+}
+.comment-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+.comment-right {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+.comment-delete {
+  font-size: 22rpx;
+  color: #ccc;
+  padding: 4rpx 12rpx;
+}
+.comment-delete:active {
+  color: #ff4757;
+}
+.comment-name {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #555;
+}
+.comment-time {
+  font-size: 22rpx;
+  color: #ccc;
+}
+.comment-content {
+  font-size: 28rpx;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* ========== 底部操作栏 ========== */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 16rpx 32rpx;
+  padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+  box-shadow: 0 -2rpx 12rpx rgba(0,0,0,0.06);
+  z-index: 100;
+}
+.bar-left {
+  display: flex;
+  align-items: center;
+  margin-right: 24rpx;
+}
+.bar-action {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 16rpx;
+}
+.bar-action.active .action-count {
+  color: #ff4757;
+}
+.bar-action.active-fav .action-icon {
+  color: #f5a623;
+}
+.bar-action.active-fav .action-count {
+  color: #f5a623;
+}
+.action-icon {
+  font-size: 36rpx;
+  margin-right: 8rpx;
+}
+.action-count {
+  font-size: 24rpx;
+  color: #999;
+}
+.comment-bar {
+  flex: 1;
+  background: #f5f5f5;
+  border-radius: 40rpx;
+  padding: 16rpx 32rpx;
+}
+.comment-placeholder {
+  font-size: 28rpx;
+  color: #bbb;
+}
+
+/* ========== 评论输入弹层 ========== */
+.comment-input-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+}
+.comment-input-panel {
+  width: 100%;
+  background: #fff;
+  padding: 24rpx 32rpx;
+  padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
+}
+.comment-input-row {
+  display: flex;
+  align-items: center;
+}
+.comment-input {
+  flex: 1;
+  background: #f5f5f5;
+  border-radius: 40rpx;
+  padding: 16rpx 28rpx;
+  font-size: 28rpx;
+}
+.send-btn {
+  margin-left: 20rpx;
+  background: #00b26a;
+  color: #fff;
+  padding: 16rpx 36rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+.send-btn:active {
+  opacity: 0.8;
+}
+
+/* ========== 三个点更多按钮 ========== */
+.more-btn {
+  margin-left: 16rpx;
+  padding: 16rpx 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.more-dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rpx;
+  width: 36rpx;
+}
+.dot {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #999;
+}

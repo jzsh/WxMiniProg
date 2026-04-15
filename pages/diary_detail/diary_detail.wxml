@@ -1,0 +1,135 @@
+<!--pages/diary_detail/diary_detail.wxml-->
+<view class="detail-page" wx:if="{{diary}}">
+
+  <!-- 顶部头图 -->
+  <view class="header-image" wx:if="{{diary.coverImage}}">
+    <image src="{{diary.coverImage}}" mode="aspectFill"></image>
+    <view class="header-overlay">
+      <text class="header-title">{{diary.title}}</text>
+    </view>
+  </view>
+
+  <!-- 没有头图时的标题区（渐变背景） -->
+  <view class="title-section" wx:else>
+    <view class="title-section-bg"></view>
+    <view class="title-section-content">
+      <text class="detail-title">{{diary.title}}</text>
+      <view class="date-line">
+        <text class="detail-date">{{diary.date}}</text>
+        <text class="detail-tag" wx:if="{{diary.tag}}">{{diary.tag}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 正文内容 -->
+  <view class="content-section">
+    <view class="meta-line" wx:if="{{diary.coverImage}}">
+      <text class="meta-date">{{diary.date}}</text>
+      <text class="meta-tag" wx:if="{{diary.tag}}">{{diary.tag}}</text>
+    </view>
+
+    <view class="content-text" wx:if="{{diary.content}}">
+      <text wx:for="{{diary.content}}" wx:key="index" class="content-paragraph">{{item}}</text>
+    </view>
+    <view class="content-text" wx:elif="{{diary.detail}}">
+      <text class="content-paragraph">{{diary.detail}}</text>
+    </view>
+
+    <view class="content-images" wx:if="{{diary.images && diary.images.length > 0}}">
+      <image
+        wx:for="{{diary.images}}"
+        wx:key="*this"
+        src="{{item}}"
+        mode="widthFix"
+        class="content-image"
+        bindtap="previewImage"
+        data-src="{{item}}"
+      ></image>
+    </view>
+
+    <view class="mood-tags" wx:if="{{diary.mood || diary.weather || diary.location}}">
+      <view class="mood-tag" wx:if="{{diary.mood}}">
+        <text>{{diary.mood}}</text>
+      </view>
+      <view class="mood-tag" wx:if="{{diary.weather}}">
+        <text>{{diary.weather}}</text>
+      </view>
+      <view class="mood-tag location-tag" wx:if="{{diary.location}}" bindtap="openLocation">
+        <text>{{diary.location}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分隔线 -->
+  <view class="divider">
+    <view class="divider-line"></view>
+    <text class="divider-text">评论区 ({{comments.length}})</text>
+    <view class="divider-line"></view>
+  </view>
+
+  <!-- 评论区 -->
+  <view class="comment-section">
+    <view class="comment-empty" wx:if="{{comments.length === 0}}">
+      <text class="comment-empty-text">暂无评论，来说两句吧~</text>
+    </view>
+    <view class="comment-item" wx:for="{{comments}}" wx:key="id" bindlongpress="deleteComment" data-index="{{index}}">
+      <image class="comment-avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+      <view class="comment-body">
+        <view class="comment-top">
+          <text class="comment-name">{{item.nickname}}</text>
+          <view class="comment-right">
+            <text class="comment-time">{{item.time}}</text>
+            <text class="comment-delete" catchtap="deleteComment" data-index="{{index}}">删除</text>
+          </view>
+        </view>
+        <text class="comment-content">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<!-- 底部操作栏 -->
+<view class="bottom-bar">
+  <view class="bar-left">
+    <view class="bar-action {{liked ? 'active' : ''}}" bindtap="toggleLike">
+      <text class="action-icon">{{liked ? '❤️' : '🤍'}}</text>
+      <text class="action-count">{{likeCount}}</text>
+    </view>
+    <view class="bar-action {{isFav ? 'active-fav' : ''}}" bindtap="toggleFavorite">
+      <text class="action-icon">{{isFav ? '⭐' : '☆'}}</text>
+      <text class="action-count">收藏</text>
+    </view>
+  </view>
+  <view class="comment-bar" bindtap="toggleCommentInput">
+    <text class="comment-placeholder">{{showCommentInput ? '点击收起键盘' : '写评论...'}}</text>
+  </view>
+  <!-- 更多操作（三个点） -->
+  <view class="more-btn" bindtap="onMoreAction">
+    <view class="more-dots">
+      <view class="dot"></view>
+      <view class="dot"></view>
+      <view class="dot"></view>
+    </view>
+  </view>
+</view>
+
+<!-- 评论输入弹层 -->
+<view class="comment-input-mask" wx:if="{{showCommentInput}}" bindtap="toggleCommentInput">
+  <view class="comment-input-panel" catchtap>
+    <view class="comment-input-row">
+      <input
+        class="comment-input"
+        placeholder="说点什么吧..."
+        value="{{commentText}}"
+        bindinput="onCommentInput"
+        focus="{{showCommentInput}}"
+        confirm-type="send"
+        bindconfirm="submitComment"
+      />
+      <view class="send-btn" bindtap="submitComment">
+        <text>发送</text>
+      </view>
+    </view>
+  </view>
+</view>

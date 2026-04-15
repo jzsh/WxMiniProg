@@ -1,0 +1,22 @@
+<!--pages/memo/memo.wxml-->
+<view class="memo-page">
+  <view class="add-btn" bindtap="toggleAdd">
+    <text>+ 新建备忘录</text>
+  </view>
+  <view class="add-box" wx:if="{{showAdd}}">
+    <input class="memo-title-input" placeholder="标题" value="{{title}}" bindinput="onTitleInput" maxlength="30" />
+    <textarea class="memo-content-input" placeholder="内容..." value="{{content}}" bindinput="onContentInput" maxlength="500" auto-height></textarea>
+    <view class="add-actions">
+      <view class="btn-cancel" bindtap="toggleAdd"><text>取消</text></view>
+      <view class="btn-confirm" bindtap="addMemo"><text>保存</text></view>
+    </view>
+  </view>
+  <view class="memo-list" wx:if="{{memos.length > 0}}">
+    <view class="memo-card" wx:for="{{memos}}" wx:key="id" style="background-color: {{item.color}};" bindlongpress="deleteMemo" data-id="{{item.id}}">
+      <text class="memo-title">{{item.title}}</text>
+      <text class="memo-content" wx:if="{{item.content}}">{{item.content}}</text>
+      <text class="memo-time">{{item.createdAt}}</text>
+    </view>
+  </view>
+  <view class="empty-hint" wx:else><text>暂无备忘录</text></view>
+</view>

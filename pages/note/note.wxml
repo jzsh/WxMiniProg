@@ -1,0 +1,141 @@
+<!--pages/note/note.wxml-->
+<view class="note-page">
+
+  <!-- 纪念日倒数 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">📅 纪念日倒数</text>
+      <view class="add-note-btn" bindtap="toggleAddAnniversary">
+        <text>+ 添加</text>
+      </view>
+    </view>
+    <!-- 添加纪念日 -->
+    <view class="add-note-box" wx:if="{{showAddAnniversary}}">
+      <view class="ann-add-row">
+        <text class="ann-icon-btn" bindtap="selectAnnIcon">{{newAnnIcon}}</text>
+        <input class="ann-name-input" placeholder="纪念日名称" value="{{newAnnName}}" bindinput="onAnnNameInput" maxlength="20" />
+      </view>
+      <picker mode="date" value="{{newAnnDate}}" start="1950-01-01" end="2099-12-31" bindchange="onAnnDateChange">
+        <view class="ann-date-row">
+          <text class="ann-date-text" wx:if="{{newAnnDate}}">{{newAnnDate}}</text>
+          <text class="ann-date-text empty" wx:else>选择日期</text>
+          <text class="date-arrow">›</text>
+        </view>
+      </picker>
+      <view class="note-input-actions">
+        <view class="note-cancel" bindtap="toggleAddAnniversary"><text>取消</text></view>
+        <view class="note-confirm" bindtap="addAnniversary"><text>确定</text></view>
+      </view>
+    </view>
+    <view class="countdown-list">
+      <view class="countdown-item" wx:for="{{countdownList}}" wx:key="name" bindlongpress="onAnniversaryLongPress" data-index="{{index}}">
+        <view class="countdown-left">
+          <text class="countdown-icon">{{item.icon}}</text>
+          <view class="countdown-info">
+            <text class="countdown-name">{{item.name}}</text>
+            <text class="countdown-date">{{item.date}}</text>
+          </view>
+        </view>
+        <view class="countdown-right">
+          <text class="countdown-num">{{item.days}}</text>
+          <text class="countdown-unit">天</text>
+        </view>
+      </view>
+    </view>
+    <view class="empty-hint" wx:if="{{countdownList.length === 0}}">
+      <text>暂无纪念日，点击上方添加</text>
+    </view>
+  </view>
+
+  <!-- 情侣100件事 -->
+  <view class="section" bindtap="onCoupleThingsTap">
+    <view class="couple-card">
+      <view class="couple-header">
+        <text class="couple-title">💕 情侣必做的100件事</text>
+      </view>
+      <view class="couple-progress">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{coupleThingsDone / coupleThingsTotal * 100}}%"></view>
+        </view>
+        <text class="progress-text">{{coupleThingsDone}}/{{coupleThingsTotal}} 已完成</text>
+      </view>
+      <view class="couple-hint">
+        <text>点击查看清单 ›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 便利贴 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">📌 我的便利贴</text>
+      <view class="add-note-btn" bindtap="toggleAddNote">
+        <text>+ 添加</text>
+      </view>
+    </view>
+    <view class="add-note-box" wx:if="{{showAddNote}}">
+      <textarea class="note-input" placeholder="写点什么..." bindinput="onNoteInput" value="{{noteText}}" maxlength="100" auto-height></textarea>
+      <view class="note-input-actions">
+        <view class="note-cancel" bindtap="toggleAddNote"><text>取消</text></view>
+        <view class="note-confirm" bindtap="addNote"><text>确定</text></view>
+      </view>
+    </view>
+    <view class="sticky-grid">
+      <view class="sticky-card" wx:for="{{stickyNotes}}" wx:key="id" style="background-color: {{item.color}};">
+        <text class="sticky-text">{{item.text}}</text>
+        <view class="sticky-footer">
+          <text class="sticky-time">{{item.time}}</text>
+          <text class="sticky-delete" bindtap="deleteNote" data-id="{{item.id}}">×</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">⚡ 快捷入口</text>
+      <view class="add-note-btn" bindtap="toggleAddQuick">
+        <text>+ 添加</text>
+      </view>
+    </view>
+    <view class="add-note-box" wx:if="{{showAddQuick}}">
+      <input class="note-input" placeholder="入口名称，如：记账本" value="{{newQuickName}}" bindinput="onQuickNameInput" maxlength="10" />
+      <view class="note-input-actions">
+        <view class="note-cancel" bindtap="toggleAddQuick"><text>取消</text></view>
+        <view class="note-confirm" bindtap="addQuickEntry"><text>确定</text></view>
+      </view>
+    </view>
+    <view class="quick-grid">
+      <view class="quick-item" wx:for="{{quickEntries}}" wx:key="index" bindtap="onQuickTap" data-index="{{index}}">
+        <text class="quick-icon">{{item.icon}}</text>
+        <text class="quick-name">{{item.name}}</text>
+        <text class="quick-del" catchtap="deleteQuickEntry" data-index="{{index}}">×</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的爱好 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">🎯 我的爱好</text>
+      <view class="add-note-btn" bindtap="toggleAddHobby">
+        <text>+ 添加</text>
+      </view>
+    </view>
+    <view class="add-note-box" wx:if="{{showAddHobby}}">
+      <input class="note-input" placeholder="添加一个爱好" value="{{newHobby}}" bindinput="onHobbyInput" maxlength="10" />
+      <view class="note-input-actions">
+        <view class="note-cancel" bindtap="toggleAddHobby"><text>取消</text></view>
+        <view class="note-confirm" bindtap="addHobby"><text>确定</text></view>
+      </view>
+    </view>
+    <view class="hobby-tags">
+      <view class="hobby-tag" wx:for="{{hobbies}}" wx:key="index">
+        <text>{{item}}</text>
+        <text class="hobby-del" catchtap="deleteHobby" data-index="{{index}}">×</text>
+      </view>
+    </view>
+  </view>
+
+</view>
